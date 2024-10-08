@@ -13,6 +13,9 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const financeCollection = db.collection("finances");
 
+// Debugging: Firebase initialisiert
+console.log("Firebase wurde erfolgreich initialisiert.");
+
 // Modal öffnen/schließen
 document.getElementById("openAddFinanceModalButton").addEventListener("click", () => {
     document.getElementById("addFinanceModal").style.display = "block";
@@ -34,6 +37,7 @@ document.getElementById("addFinanceForm").addEventListener("submit", async (e) =
         account: document.getElementById("financeAccount").value
     };
     try {
+        console.log("Neuer Finanzdatensatz wird hinzugefügt:", finance);
         await financeCollection.add(finance);
         document.getElementById("addFinanceForm").reset();
         document.getElementById("addFinanceModal").style.display = "none";
@@ -51,6 +55,7 @@ document.getElementById("exportFinanceButton").addEventListener("click", async (
             financeData.push(doc.data());
         });
 
+        console.log("Exportierte Daten:", financeData);
         const worksheet = XLSX.utils.json_to_sheet(financeData);
         const workbook = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(workbook, worksheet, "Finanzen");
@@ -60,23 +65,28 @@ document.getElementById("exportFinanceButton").addEventListener("click", async (
     }
 });
 
-// Importieren der Finanzdaten
+// Importieren der Finanzdaten mit Debugging
 document.getElementById("importFinanceFile").addEventListener("change", async (e) => {
     const file = e.target.files[0];
     if (!file) {
+        console.log("Keine Datei ausgewählt.");
         return;
     }
 
     const reader = new FileReader();
     reader.onload = async (event) => {
         try {
-            const data = new Uint8Array(event.target.result); // Richtiges event-Objekt verwenden
+            console.log("Datei erfolgreich gelesen.");
+            const data = new Uint8Array(event.target.result);
+            console.log("Daten aus der Datei:", data);
+
             const workbook = XLSX.read(data, { type: "array" });
-            const sheetName = workbook.SheetNames[0]; // Verwende das erste Blatt
+            const sheetName = workbook.SheetNames[0];
             const worksheet = workbook.Sheets[sheetName];
             const financeData = XLSX.utils.sheet_to_json(worksheet);
 
-            // Finanzdaten zur Firebase-Datenbank hinzufügen
+            console.log("Importierte Finanzdaten:", financeData);
+
             for (const finance of financeData) {
                 await financeCollection.add(finance);
             }
@@ -85,5 +95,6 @@ document.getElementById("importFinanceFile").addEventListener("change", async (e
             console.error("Fehler beim Importieren der Finanzdaten: ", error);
         }
     };
-    reader.readAsArrayBuffer(file); // Stelle sicher, dass file richtig gelesen wird
+    reader.readAsArrayBuffer(file);
+    console.log("Datei wird gelesen...");
 });
