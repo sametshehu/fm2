@@ -70,12 +70,13 @@ document.getElementById("importFinanceFile").addEventListener("change", async (e
     const reader = new FileReader();
     reader.onload = async (event) => {
         try {
-            const data = new Uint8Array(event.target.result); // Verwende `event.target.result`
+            const data = new Uint8Array(event.target.result); // Richtiges event-Objekt verwenden
             const workbook = XLSX.read(data, { type: "array" });
-            const sheetName = workbook.SheetNames[0];
+            const sheetName = workbook.SheetNames[0]; // Verwende das erste Blatt
             const worksheet = workbook.Sheets[sheetName];
             const financeData = XLSX.utils.sheet_to_json(worksheet);
 
+            // Finanzdaten zur Firebase-Datenbank hinzufügen
             for (const finance of financeData) {
                 await financeCollection.add(finance);
             }
@@ -84,5 +85,5 @@ document.getElementById("importFinanceFile").addEventListener("change", async (e
             console.error("Fehler beim Importieren der Finanzdaten: ", error);
         }
     };
-    reader.readAsArrayBuffer(file);
+    reader.readAsArrayBuffer(file); // Stelle sicher, dass file richtig gelesen wird
 });
