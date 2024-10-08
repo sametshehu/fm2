@@ -68,14 +68,14 @@ document.getElementById("importFinanceFile").addEventListener("change", async (e
     }
 
     const reader = new FileReader();
-    reader.onload = async (e) => {
-        const data = new Uint8Array(e.target.result);
-        const workbook = XLSX.read(data, { type: "array" });
-        const sheetName = workbook.SheetNames[0];
-        const worksheet = workbook.Sheets[sheetName];
-        const financeData = XLSX.utils.sheet_to_json(worksheet);
-
+    reader.onload = async (event) => {
         try {
+            const data = new Uint8Array(event.target.result); // Verwende `event.target.result`
+            const workbook = XLSX.read(data, { type: "array" });
+            const sheetName = workbook.SheetNames[0];
+            const worksheet = workbook.Sheets[sheetName];
+            const financeData = XLSX.utils.sheet_to_json(worksheet);
+
             for (const finance of financeData) {
                 await financeCollection.add(finance);
             }
