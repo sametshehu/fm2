@@ -1,28 +1,27 @@
 // Firebase-Konfiguration
 const firebaseConfig = {
-  apiKey: "AIzaSyD5asuJN_0f_wcP3KidUqAYyEsCvtPaIeI",
-  authDomain: "mitgliederverwaltung-3458b.firebaseapp.com",
-  projectId: "mitgliederverwaltung-3458b",
-  storageBucket: "mitgliederverwaltung-3458b.appspot.com",
-  messagingSenderId: "916656812587",
-  appId: "1:916656812587:web:23b510f805c800f62af06e"
+    apiKey: "AIzaSyD5asuJN_0f_wcP3KidUqAYyEsCvtPaIeI",
+    authDomain: "mitgliederverwaltung-3458b.firebaseapp.com",
+    projectId: "mitgliederverwaltung-3458b",
+    storageBucket: "mitgliederverwaltung-3458b.appspot.com",
+    messagingSenderId: "916656812587",
+    appId: "1:916656812587:web:23b510f805c800f62af06e"
 };
 
 // Firebase initialisieren
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const membersCollection = db.collection("members");
-const financeCollection = db.collection("finances");
 
+// Modal öffnen/schließen
 document.getElementById("openAddModalButton").addEventListener("click", () => {
     document.getElementById("addMemberModal").style.display = "block";
 });
-
 document.getElementById("closeAddModal").addEventListener("click", () => {
     document.getElementById("addMemberModal").style.display = "none";
 });
 
-// Handle member form submission
+// Neues Mitglied hinzufügen
 document.getElementById("addMemberForm").addEventListener("submit", async (e) => {
     e.preventDefault();
     const member = {
