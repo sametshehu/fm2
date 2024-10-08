@@ -41,4 +41,48 @@ document.getElementById("addFinanceForm").addEventListener("submit", async (e) =
         console.error("Fehler beim Hinzufügen des Finanzdatensatzes: ", error);
     }
 });
-v
+
+// Exportieren der Finanzdaten
+document.getElementById("exportFinanceButton").addEventListener("click", async () => {
+    try {
+        const snapshot = await financeCollection.get();
+        const financeData = [];
+        snapshot.forEach((doc) => {
+            financeData.push(doc.data());
+        });
+
+        const worksheet = XLSX.utils.json_to_sheet(financeData);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Finanzen");
+        XLSX.writeFile(workbook, "Finanzen.xlsx");
+    } catch (error) {
+        console.error("Fehler beim Exportieren der Finanzdaten: ", error);
+    }
+});
+
+// Importieren der Finanzdaten
+document.getElementById("importFinanceFile").addEventListener("change", async (e) => {
+    const file = e.target.files[0];
+    if (!file) {
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+        const data = new Uint8Array(e.target.result);
+        const workbook = XLSX.read(data, { type: "array" });
+        const sheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[sheetName];
+        const financeData = XLSX.utils.sheet_to_json(worksheet);
+
+        try {
+            for (const finance of financeData) {
+                await financeCollection.add(finance);
+            }
+            alert("Finanzdaten erfolgreich importiert.");
+        } catch (error) {
+            console.error("Fehler beim Importieren der Finanzdaten: ", error);
+        }
+    };
+    reader.readAsArrayBuffer(file);
+});
