@@ -18,7 +18,7 @@ h1, h2 {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-form input, form select, form button {
+form input, form select {
     width: calc(100% - 22px);
     padding: 10px;
     margin: 10px 0;
@@ -27,13 +27,38 @@ form input, form select, form button {
 }
 
 form button {
+    width: 100%;
+    padding: 10px;
     background-color: #28a745;
     color: white;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
 }
 
 form button:hover {
     background-color: #218838;
+}
+
+.members-list, .finance-list {
+    max-width: 100%;
+    margin: 20px auto;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+}
+
+.members-list table, .finance-list table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.members-list th, .members-list td, .finance-list th, .finance-list td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
 }
 
 .modal {
@@ -68,56 +93,44 @@ form button:hover {
 .close:hover,
 .close:focus {
     color: black;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .delete-button {
     background-color: #dc3545;
     color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
     cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
 }
 
 .delete-button:hover {
     background-color: #c82333;
 }
 
-.loading {
-    text-align: center;
-    font-size: 18px;
-    margin: 20px 0;
-}
-
-.members-list, .finance-list {
-    max-width: 100%;
-    margin: 20px auto;
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    overflow-x: auto;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th, td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: left;
-}
-
 #openAddModalButton, #openAddFinanceModalButton {
     width: calc(100% - 40px);
+    max-width: 500px;
     padding: 10px;
     margin: 20px auto;
     display: block;
     background-color: #007bff;
     color: white;
     border: none;
+    border-radius: 4px;
     cursor: pointer;
 }
 
 #openAddModalButton:hover, #openAddFinanceModalButton:hover {
     background-color: #0056b3;
+}
+
+.loading {
+    text-align: center;
+    font-size: 18px;
+    margin: 20px 0;
 }
