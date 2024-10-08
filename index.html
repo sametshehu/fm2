@@ -4,14 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moschee Drita - Mitgliederverwaltung</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Firebase CDN -->
-    <script src="https://www.gstatic.com/firebasejs/9.16.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.16.0/firebase-firestore-compat.js"></script>
-    <!-- XLSX für Excel-Export -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
-    <!-- Dein JavaScript -->
-    <script defer src="script.js"></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <nav>
@@ -19,7 +12,7 @@
         <a href="finanzen.html">Finanzverwaltung</a>
     </nav>
     <h1>Moschee Drita - Mitgliederverwaltung</h1>
-
+    
     <!-- Modal zum Hinzufügen eines Mitglieds -->
     <div id="addMemberModal" class="modal">
         <div class="modal-content">
@@ -29,7 +22,7 @@
                 <input type="text" id="addMemberNumber" placeholder="Mitgliedsnummer" required>
                 <input type="text" id="addName" placeholder="Name" required>
                 <input type="email" id="addEmail" placeholder="Email">
-                <input type="text" id="addPhone" placeholder="Telefonnummer" pattern="[0-9]{10,15}">
+                <input type="text" id="addPhone" placeholder="Telefonnummer" pattern="[0-9]{10,15}" title="Bitte geben Sie eine gültige Telefonnummer ein (10-15 Ziffern)">
                 <input type="text" id="addAddress" placeholder="Adresse">
                 <input type="text" id="addZip" placeholder="PLZ">
                 <input type="text" id="addCity" placeholder="Ort">
@@ -77,7 +70,7 @@
                 <input type="text" id="editMemberNumber" placeholder="Mitgliedsnummer" required>
                 <input type="text" id="editName" placeholder="Name" required>
                 <input type="email" id="editEmail" placeholder="Email">
-                <input type="text" id="editPhone" placeholder="Telefonnummer">
+                <input type="text" id="editPhone" placeholder="Telefonnummer" pattern="[0-9]{10,15}" title="Bitte geben Sie eine gültige Telefonnummer ein (10-15 Ziffern)">
                 <input type="text" id="editAddress" placeholder="Adresse">
                 <input type="text" id="editZip" placeholder="PLZ">
                 <input type="text" id="editCity" placeholder="Ort">
@@ -86,5 +79,7 @@
             <button id="deleteMemberButton" class="delete-button">Löschen</button>
         </div>
     </div>
+
+    <script src="mitglieder.js"></script>
 </body>
 </html>
