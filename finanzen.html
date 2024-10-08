@@ -4,14 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moschee Drita - Finanzverwaltung</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Firebase CDN -->
-    <script src="https://www.gstatic.com/firebasejs/9.16.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.16.0/firebase-firestore-compat.js"></script>
-    <!-- XLSX für Excel-Export -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
-    <!-- Dein JavaScript -->
-    <script defer src="finance.js"></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <nav>
@@ -20,12 +13,13 @@
     </nav>
     <h1>Moschee Drita - Finanzverwaltung</h1>
 
+    <!-- Modal zum Hinzufügen einer Finanztransaktion -->
     <div id="addFinanceModal" class="modal">
         <div class="modal-content">
             <span id="closeAddFinanceModal" class="close">&times;</span>
             <h2>Neue Finanztransaktion hinzufügen</h2>
             <form id="addFinanceForm">
-                <input type="date" id="financeDate" required>
+                <input type="date" id="financeDate" placeholder="Datum" required>
                 <select id="financeCategory" required>
                     <option value="">Kategorie auswählen</option>
                     <option value="Mitgliederbeitrag">Mitgliederbeitrag</option>
@@ -33,9 +27,10 @@
                     <option value="Rechnung">Rechnung</option>
                 </select>
                 <input type="text" id="financeNote" placeholder="Bemerkung" required>
-                <input type="number" id="financeAmount" required>
-                <input type="number" id="financeYearlyFee" required>
+                <input type="number" id="financeAmount" placeholder="Betrag" required>
+                <input type="number" id="financeYearlyFee" placeholder="Mitgliedsbeitrag für das Jahr" required>
                 <select id="financeType" required>
+                    <option value="">Ausgaben/Einnahmen auswählen</option>
                     <option value="Ausgaben">Ausgaben</option>
                     <option value="Einnahmen">Einnahmen</option>
                 </select>
@@ -51,14 +46,16 @@
 
     <button id="openAddFinanceModalButton">Neue Finanztransaktion hinzufügen</button>
     <button id="exportFinanceButton">Finanzen exportieren (Excel)</button>
+    <button id="addColumnButton">Neue Spalte hinzufügen</button>
     <input type="file" id="importFinanceFile" accept=".xlsx, .xls" />
 
+    <!-- Finanzliste -->
     <div class="finance-list">
         <h2>Finanztransaktionen</h2>
         <div class="loading" id="loadingFinanceMessage">Lade Finanztransaktionen...</div>
         <table id="financesTable">
             <thead>
-                <tr>
+                <tr id="financeTableHeader">
                     <th>Datum</th>
                     <th>Kategorie</th>
                     <th>Bemerkung</th>
@@ -79,15 +76,16 @@
             <span id="closeEditFinanceModal" class="close">&times;</span>
             <h2>Finanztransaktion bearbeiten</h2>
             <form id="editFinanceForm">
-                <input type="date" id="editFinanceDate" required>
+                <input type="date" id="editFinanceDate" placeholder="Datum" required>
                 <select id="editFinanceCategory" required>
+                    <option value="">Kategorie auswählen</option>
                     <option value="Mitgliederbeitrag">Mitgliederbeitrag</option>
                     <option value="Lohn">Lohn</option>
                     <option value="Rechnung">Rechnung</option>
                 </select>
-                <input type="text" id="editFinanceNote" required>
-                <input type="number" id="editFinanceAmount" required>
-                <input type="number" id="editFinanceYearlyFee" required>
+                <input type="text" id="editFinanceNote" placeholder="Bemerkung" required>
+                <input type="number" id="editFinanceAmount" placeholder="Betrag" required>
+                <input type="number" id="editFinanceYearlyFee" placeholder="Mitgliedsbeitrag für das Jahr" required>
                 <select id="editFinanceType" required>
                     <option value="Ausgaben">Ausgaben</option>
                     <option value="Einnahmen">Einnahmen</option>
@@ -102,5 +100,7 @@
             <button id="deleteFinanceButton" class="delete-button">Löschen</button>
         </div>
     </div>
+
+    <script src="finanzen.js"></script>
 </body>
 </html>
