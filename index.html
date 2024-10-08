@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moschee Drita - Mitgliederverwaltung</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Mitgliederverwaltung</a> |
+        <a href="finanzen.html">Finanzverwaltung</a>
+    </nav>
+    <h1>Moschee Drita - Mitgliederverwaltung</h1>
+
+    <!-- Modal zum Hinzufügen eines Mitglieds -->
+    <div id="addMemberModal" class="modal">
+        <div class="modal-content">
+            <span id="closeAddModal" class="close">&times;</span>
+            <h2>Neues Mitglied hinzufügen</h2>
+            <form id="addMemberForm">
+                <input type="text" id="addMemberNumber" placeholder="Mitgliedsnummer" required>
+                <input type="text" id="addName" placeholder="Name" required>
+                <input type="email" id="addEmail" placeholder="Email">
+                <input type="text" id="addPhone" placeholder="Telefonnummer" pattern="[0-9]{10,15}">
+                <input type="text" id="addAddress" placeholder="Adresse">
+                <input type="text" id="addZip" placeholder="PLZ">
+                <input type="text" id="addCity" placeholder="Ort">
+                <button type="submit">Hinzufügen</button>
+            </form>
+        </div>
+    </div>
+
+    <button id="openAddModalButton">Neues Mitglied hinzufügen</button>
+    <button id="exportButton">Mitglieder exportieren (Excel)</button>
+    <input type="file" id="importFile" accept=".xlsx, .xls" />
+
+    <!-- Mitgliederliste -->
+    <div class="members-list">
+        <h2>Mitgliederliste</h2>
+        <div class="loading" id="loadingMessage">Lade Mitglieder...</div>
+        <table id="membersTable">
+            <thead>
+                <tr>
+                    <th>Mitgliedsnummer</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Telefonnummer</th>
+                    <th>Adresse</th>
+                    <th>PLZ</th>
+                    <th>Ort</th>
+                    <th>2022</th>
+                    <th>2023</th>
+                    <th>2024</th>
+                    <th>2025</th>
+                    <th>2026</th>
+                    <th>Aktionen</th>
+                </tr>
+            </thead>
+            <tbody id="members"></tbody>
+        </table>
+    </div>
+
+    <!-- Modal zum Bearbeiten eines Mitglieds -->
+    <div id="editMemberModal" class="modal">
+        <div class="modal-content">
+            <span id="closeModal" class="close">&times;</span>
+            <h2>Mitglied bearbeiten</h2>
+            <form id="editMemberForm">
+                <input type="text" id="editMemberNumber" placeholder="Mitgliedsnummer" required>
+                <input type="text" id="editName" placeholder="Name" required>
+                <input type="email" id="editEmail" placeholder="Email">
+                <input type="text" id="editPhone" placeholder="Telefonnummer">
+                <input type="text" id="editAddress" placeholder="Adresse">
+                <input type="text" id="editZip" placeholder="PLZ">
+                <input type="text" id="editCity" placeholder="Ort">
+                <button type="submit">Speichern</button>
+            </form>
+            <button id="deleteMemberButton" class="delete-button">Löschen</button>
+        </div>
+    </div>
+</body>
+</html>
