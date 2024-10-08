@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moschee Drita - Finanzverwaltung</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+    <script defer src="finance.js"></script>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Mitgliederverwaltung</a> |
+        <a href="finanzen.html">Finanzverwaltung</a>
+    </nav>
+    <h1>Moschee Drita - Finanzverwaltung</h1>
+
+    <div id="addFinanceModal" class="modal">
+        <div class="modal-content">
+            <span id="closeAddFinanceModal" class="close">&times;</span>
+            <h2>Neue Finanztransaktion hinzufügen</h2>
+            <form id="addFinanceForm">
+                <input type="date" id="financeDate" required>
+                <select id="financeCategory" required>
+                    <option value="">Kategorie auswählen</option>
+                    <option value="Mitgliederbeitrag">Mitgliederbeitrag</option>
+                    <option value="Lohn">Lohn</option>
+                    <option value="Rechnung">Rechnung</option>
+                </select>
+                <input type="text" id="financeNote" placeholder="Bemerkung" required>
+                <input type="number" id="financeAmount" required>
+                <input type="number" id="financeYearlyFee" required>
+                <select id="financeType" required>
+                    <option value="">Typ auswählen</option>
+                    <option value="Ausgaben">Ausgaben</option>
+                    <option value="Einnahmen">Einnahmen</option>
+                </select>
+                <select id="financeAccount" required>
+                    <option value="Konto 05">Konto 05</option>
+                    <option value="Konto 03">Konto 03</option>
+                    <option value="Bar">Bar</option>
+                </select>
+                <button type="submit">Hinzufügen</button>
+            </form>
+        </div>
+    </div>
+
+    <button id="openAddFinanceModalButton">Neue Finanztransaktion hinzufügen</button>
+    <button id="exportFinanceButton">Finanzen exportieren (Excel)</button>
+    <input type="file" id="importFinanceFile" accept=".xlsx, .xls" />
+
+    <div class="finance-list">
+        <h2>Finanztransaktionen</h2>
+        <div class="loading" id="loadingFinanceMessage">Lade Finanztransaktionen...</div>
+        <table id="financesTable">
+            <thead>
+                <tr>
+                    <th>Datum</th>
+                    <th>Kategorie</th>
+                    <th>Bemerkung</th>
+                    <th>Betrag</th>
+                    <th>Mitgl. Beitrag Jahr</th>
+                    <th>Typ</th>
+                    <th>Konto</th>
+                    <th>Aktionen</th>
+                </tr>
+            </thead>
+            <tbody id="finances"></tbody>
+        </table>
+    </div>
+
+    <!-- Modal zum Bearbeiten einer Finanztransaktion -->
+    <div id="editFinanceModal" class="modal">
+        <div class="modal-content">
+            <span id="closeEditFinanceModal" class="close">&times;</span>
+            <h2>Finanztransaktion bearbeiten</h2>
+            <form id="editFinanceForm">
+                <input type="date" id="editFinanceDate" required>
+                <select id="editFinanceCategory" required>
+                    <option value="Mitgliederbeitrag">Mitgliederbeitrag</option>
+                    <option value="Lohn">Lohn</option>
+                    <option value="Rechnung">Rechnung</option>
+                </select>
+                <input type="text" id="editFinanceNote" required>
+                <input type="number" id="editFinanceAmount" required>
+                <input type="number" id="editFinanceYearlyFee" required>
+                <select id="editFinanceType" required>
+                    <option value="Ausgaben">Ausgaben</option>
+                    <option value="Einnahmen">Einnahmen</option>
+                </select>
+                <select id="editFinanceAccount" required>
+                    <option value="Konto 05">Konto 05</option>
+                    <option value="Konto 03">Konto 03</option>
+                    <option value="Bar">Bar</option>
+                </select>
+                <button type="submit">Speichern</button>
+            </form>
+            <button id="deleteFinanceButton" class="delete-button">Löschen</button>
+        </div>
+    </div>
+</body>
+</html>
