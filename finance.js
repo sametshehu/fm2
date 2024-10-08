@@ -1,4 +1,4 @@
-// Firebase-Konfiguration
+// Firebase initialisieren
 firebase.initializeApp(firebaseConfig);
 const financeCollection = db.collection("finances");
 
@@ -10,7 +10,7 @@ document.getElementById("closeAddFinanceModal").addEventListener("click", () => 
     document.getElementById("addFinanceModal").style.display = "none";
 });
 
-// Handle finance form submission
+// Neues Finanzdatensatz hinzufügen
 document.getElementById("addFinanceForm").addEventListener("submit", async (e) => {
     e.preventDefault();
     const finance = {
